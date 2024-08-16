@@ -291,7 +291,7 @@ post:
   rss: /rss/atom.xml
   covercolor: # After opening, the main color of the cover image will be used as the background color.
     enable: true
-    mode: local # local: local color / api: img2color color
+    mode: api # local: local color / api: img2color color
     api: https://api.qjqq.cn/api/Imgcolor?img= # api address
     time: 43200000 # api color interval (milliseconds), default is 12 hours
   footer:
