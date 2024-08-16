@@ -1,0 +1,288 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><title>为第三方系统接入HMS | pzjawaのblog</title><noscript>开启JavaScript才能访问本站哦~</noscript><link rel="icon" href="https://image.ifeng.asia:5243/files/2/66bb20f578fd8.webp"><!-- index.css--><link rel="stylesheet" href="/css/index.css?v=2.0.7"><!-- inject head--><link rel="canonical" href="https://blog.pzjawa.us.kg/posts/bfce.html"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"><!-- aplayer--><!-- swiper--><!-- fancybox ui--><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.36/fancybox/fancybox.min.css"><!-- katex--><!-- Open Graph--><meta name="description" content="前言国内安卓生态并未接入GCM&amp;#x2F;FCM统一推送体系，国内安卓应用大都采用自带推送服务或第三方推送服务体系，从而导致应用需要常驻后台。 在国内比较成功的系统级推送体系有MIPush和HMS等，接入后能够有效减少应用因消息推送的需要而频繁自启的行为，从而减少后台占用达到省电的效果。 HMS需要"><!-- pwa--><meta name="apple-mobile-web-app-capable" content="pzjawaのblog"><meta name="theme-color" content="var(--efu-main)"><meta name="apple-mobile-web-app-status-bar-style" content="var(--efu-main)"><link rel="bookmark" href="https://image.ifeng.asia:5243/files/2/66bb20f578fd8.webp"><link rel="apple-touch-icon" href="https://image.ifeng.asia:5243/files/2/66bb20f578fd8.webp" sizes="180x180"><script>console.log(' %c Solitude %c ' + '2.0.7' + ' %c https://github.com/everfu/hexo-theme-solitude',
+    'background:#35495e ; padding: 1px; border-radius: 3px 0 0 3px;  color: #fff',
+    'background:#ff9a9a ; padding: 1px; border-radius: 0 3px 3px 0;  color: #fff',
+    'background:unset ; padding: 1px; border-radius: 0 3px 3px 0;  color: #fff')
+</script><script>(()=>{
+        const saveToLocal = {
+            set: function setWithExpiry(key, value, ttl) {
+                if (ttl === 0)
+                    return
+                const now = new Date()
+                const expiryDay = ttl * 86400000
+                const item = {
+                    value: value,
+                    expiry: now.getTime() + expiryDay
+                }
+                localStorage.setItem(key, JSON.stringify(item))
+            },
+            get: function getWithExpiry(key) {
+                const itemStr = localStorage.getItem(key)
+    
+                if (!itemStr) {
+                    return undefined
+                }
+                const item = JSON.parse(itemStr)
+                const now = new Date()
+    
+                if (now.getTime() > item.expiry) {
+                    localStorage.removeItem(key)
+                    return undefined
+                }
+                return item.value
+            }
+        };
+        window.utils = {
+            saveToLocal: saveToLocal,
+            getCSS: (url, id = false) => new Promise((resolve, reject) => {
+              const link = document.createElement('link')
+              link.rel = 'stylesheet'
+              link.href = url
+              if (id) link.id = id
+              link.onerror = reject
+              link.onload = link.onreadystatechange = function() {
+                const loadState = this.readyState
+                if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+                link.onload = link.onreadystatechange = null
+                resolve()
+              }
+              document.head.appendChild(link)
+            }),
+            getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+              const script = document.createElement('script')
+              script.src = url
+              script.async = true
+              script.onerror = reject
+              script.onload = script.onreadystatechange = function() {
+                const loadState = this.readyState
+                if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+                script.onload = script.onreadystatechange = null
+                resolve()
+              }
+    
+              Object.keys(attr).forEach(key => {
+                script.setAttribute(key, attr[key])
+              })
+    
+              document.head.appendChild(script)
+            }),
+            addGlobalFn: (key, fn, name = false, parent = window) => {
+                const globalFn = parent.globalFn || {}
+                const keyObj = globalFn[key] || {}
+        
+                if (name && keyObj[name]) return
+        
+                name = name || Object.keys(keyObj).length
+                keyObj[name] = fn
+                globalFn[key] = keyObj
+                parent.globalFn = globalFn
+            },
+        }
+    })()</script><!-- global head--><script>const GLOBAL_CONFIG = {
+    root: '/',
+    algolia: undefined,
+    localsearch: undefined,
+    runtime: '2022-10-01 00:00:00',
+    lazyload: {
+        enable: false,
+        error: '/img/error_load.avif'
+    },
+    copyright: false,
+    highlight: {"limit":200,"expand":true,"copy":true,"syntax":"highlight.js"},
+    randomlink: false,
+    lang: {"theme":{"dark":"已切换至深色模式","light":"已切换至浅色模式"},"copy":{"success":"复制成功","error":"复制失败"},"backtop":"返回顶部","time":{"day":"天前","hour":"小时前","just":"刚刚","min":"分钟前","month":"个月前"},"day":" 天","f12":"开发者模式已打开，请遵循GPL协议。","totalk":"无需删除空行，直接输入评论即可"},
+    aside: {
+        sayhello: {
+            morning: "早上好，新的一天来了 ✨",
+            noon: "是时候小息一会了 😌",
+            afternoon: "下午茶时间 🍵",
+            night: "早睡早起 🛏",
+            goodnight: "晚安 😴",
+        },
+        sayhello2: ["(⁎⁍̴̛ᴗ⁍̴̛⁎)","╰(✿´⌣`✿)╯♡","(๑•́ ₃ •̀๑)ｴｰ","(๑ơ ₃ ơ)♥","(๑¯ω¯๑)","(ง •̀_•́)ง‼","٩(๑`^´๑)۶","٩(๑òωó๑)۶","(⌒ω⌒)","٩(๑˃̵ᴗ˂̵๑)۶","ʕ•̀ω•́ʔ✧","( つ•̀ω•́)つ","(•ө•)♡","( ๑͒･(ｴ)･๑͒)","꒰ ๑͒ ･౪･๑͒꒱","σ(o’ω’o)","(๑•́ ₃ •̀๑)/","(･’ω’･)","(｡◕ ∀ ◕｡)","╲(｡◕‿◕｡)╱","(´｡✪ω✪｡｀)","(✿╹◡╹)","(* Ŏ∀Ŏ)","(๑◔‿◔๑)","(δωδ)」","(･◡ु‹ )","٩(๑òωó๑)۶","(灬╹ω╹灬)","(..＞◡＜..)","ოර⌄රო","(●☌◡☌●)","(●･̆⍛･̆●)","(●´ϖ`●)","(◍3◍)","٩( ╹▿╹ )۶","(｡╹ω╹｡)"],
+        sayhello3: {
+            prefix: '好久不见，',
+            back: '欢迎再次回来，',
+        },
+    },
+    covercolor: {
+        enable: true
+    },
+    comment: false,
+    lightbox: 'fancybox',
+    post_ai: false,
+    right_menu: false,
+    lure: {"jump":"404 Not Found","back":"ヾ(≧∇≦*)ゝ嘿嘿，上当了吧"},
+    expire: false,
+};</script><!-- page-config head--><script id="config-diff">var PAGE_CONFIG = {
+    is_post: true,
+    is_page: false,
+    is_home: false,
+    page: '',
+    toc: true,
+    comment: false,
+    ai_text: false
+}</script><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/rss/atom.xml" title="pzjawaのblog" type="application/atom+xml">
+</head><body id="body"><!-- universe--><canvas id="universe"></canvas><!-- background img--><!-- loading--><div id="loading-box" onclick="preloader.endLoading();" style="zoom:1"><div class="loading-bg"><img class="loading-img nolazyload" src="https://image.ifeng.asia:5243/files/2/66bb20f578fd8.webp" alt="loading image"></div></div><script>const preloader = {
+    isLoaded: false,
+    endLoading: () => {
+        if (!preloader.isLoaded) {
+            document.getElementById('loading-box').classList.add('loaded');
+            preloader.isLoaded = true;
+        }
+    },
+    initLoading: () => {
+        document.getElementById('loading-box').classList.remove('loaded');
+        preloader.isLoaded = false;
+    },
+    removePaceDone: () => {
+        document.getElementById('body').classList = 'pace-done';
+    }
+}
+
+window.addEventListener('load', () => {
+    preloader.endLoading();
+});
+
+window.addEventListener('pjax:send', () => {
+    preloader.initLoading();
+});
+
+document.addEventListener('pjax:complete', () => {
+    preloader.endLoading();
+});
+
+setTimeout(() => {
+    preloader.endLoading();
+}, 5000);</script><!-- console--><div id="console"><div class="close-btn" onclick="sco.hideConsole()"><i class="solitude fa-solid fa-xmark"></i></div><div class="console-card-group"><div class="console-card-group-right"><div class="console-card tags" onclick="sco.hideConsole()"><div class="card-content"><div class="author-content-item-tips">标签</div><div class="author-content-item-title">寻找感兴趣的领域</div></div><div class="card-tag-cloud"><a href="/tags/%E7%88%B1%E4%BA%BA%E5%85%88%E7%88%B1%E5%B7%B1/">爱人先爱己<sup>1</sup></a><a href="/tags/%E6%8B%A9%E4%BA%BA%E5%85%88%E9%97%AE%E5%BF%83/">择人先问心<sup>1</sup></a><a href="/tags/%E7%8E%A9%E6%9C%BA/">玩机<sup>3</sup></a></div></div><div class="console-card history" onclick="sco.hideConsole()"><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/05/"><span class="card-archive-list-date">2024/05</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">1</span><span class="card-archive-list-count-unit">篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/07/"><span class="card-archive-list-date">2023/07</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">2</span><span class="card-archive-list-count-unit">篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/06/"><span class="card-archive-list-date">2023/06</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">1</span><span class="card-archive-list-count-unit">篇</span></div></a></li></ul></div></div></div><div class="button-group"><div class="console-btn-item"><span class="darkmode_switchbutton" onclick="sco.switchDarkMode()" title="昼夜切换"><i class="solitude fa-solid fa-circle-half-stroke"></i></span></div><div class="console-btn-item" id="consoleHideAside"><span class="asideSwitch" onclick="sco.switchHideAside()" title="边栏显示控制"><i class="solitude fa-solid fa-mattress-pillow"></i></span></div></div><div class="console-mask" onclick="sco.hideConsole()"></div></div><!-- sidebar--><div id="sidebar" style="zoom: 1;"><div id="menu-mask" style="display: none;"></div><div id="sidebar-menus"><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">4</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">2</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">3</div></a></div></div></div><span class="sidebar-menu-item-title">功能</span><div class="sidebar-menu-item"><span class="darkmode_switchbutton menu-child" onclick="sco.switchDarkMode()"><i class="solitude fa-solid fa-circle-half-stroke"></i><span>显示模式</span></span></div><div class="back-menu-list-groups"><div class="back-menu-list-group"><div class="back-menu-list-title">project</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://pzjawa.us.kg/" title="主页"><img class="nolazyload back-menu-item-icon" src="https://image.ifeng.asia:5243/files/2/66bb20f578fd8.webp" alt="主页"><span class="back-menu-item-text">主页</span></a></div></div></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><span>首页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span>文库</span></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="solitude  fas fa-folder-closed"></i><span>文章</span></a></li><li><a class="site-page child" href="/categories/"><i class="solitude  fas fa-clone"></i><span>分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="solitude  fas fa-tags"></i><span>标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span>我的</span></a><ul class="menus_item_child"><li><a class="site-page child" href="/links/"><i class="solitude  fas fa-user-group"></i><span>友链</span></a></li><li><a class="site-page child" href="/equipment/"><i class="solitude  fas fa-laptop"></i><span>装备</span></a></li><li><a class="site-page child" href="/about/"><i class="solitude  fas fa-user"></i><span>关于</span></a></li></ul></div></div><span class="sidebar-menu-item-title">标签</span><div class="card-widget card-tags card-archives card-webinfo card-allinfo"><div class="card-tag-cloud"><a href="/tags/%E7%88%B1%E4%BA%BA%E5%85%88%E7%88%B1%E5%B7%B1/">爱人先爱己<sup>1</sup></a><a href="/tags/%E6%8B%A9%E4%BA%BA%E5%85%88%E9%97%AE%E5%BF%83/">择人先问心<sup>1</sup></a><a href="/tags/%E7%8E%A9%E6%9C%BA/">玩机<sup>3</sup></a></div></div></div></div><!-- keyboard--><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav class="show" id="nav"><div id="nav-group"><div id="blog_name"><div class="back-home-button" tabindex="-1"><i class="back-home-button-icon solitude fab fa-squarespace"></i><div class="back-menu-list-groups"><div class="back-menu-list-group"><div class="back-menu-list-title">project</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://pzjawa.us.kg/" title="主页"><img class="nolazyload back-menu-item-icon" src="https://image.ifeng.asia:5243/files/2/66bb20f578fd8.webp" alt="主页"><span class="back-menu-item-text">主页</span></a></div></div></div></div><a id="site-name" href="/" title="返回博客主页"><span class="title">pzjawa</span><i class="solitude fa-solid fa-home"></i></a></div><div id="page-name-mask"><div id="page-name"><a id="page-name-text" onclick="sco.toTop()">为第三方系统接入HMS</a></div></div><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><span>首页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span>文库</span></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="solitude  fas fa-folder-closed"></i><span>文章</span></a></li><li><a class="site-page child" href="/categories/"><i class="solitude  fas fa-clone"></i><span>分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="solitude  fas fa-tags"></i><span>标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span>我的</span></a><ul class="menus_item_child"><li><a class="site-page child" href="/links/"><i class="solitude  fas fa-user-group"></i><span>友链</span></a></li><li><a class="site-page child" href="/equipment/"><i class="solitude  fas fa-laptop"></i><span>装备</span></a></li><li><a class="site-page child" href="/about/"><i class="solitude  fas fa-user"></i><span>关于</span></a></li></ul></div></div></div><div id="nav-left"></div><div id="nav-right"><div class="nav-button" id="randomPost_button"><a class="site-page" onclick="toRandomPost()" title="随机一篇文章" href="javascript:void(0);"><i class="solitude fa-solid fa-dice-d6"></i></a></div><div class="nav-button" id="nav-console"><a class="console_switchbutton" onclick="sco.showConsole()" title="中控台" href="javascript:void(0);"><label><i class="left"></i><i class="center"></i><i class="right"></i></label></a></div><div class="nav-button" id="nav-totop" onclick="sco.toTop()"><a class="totopbtn"><i class="solitude fa-solid fa-arrow-up"></i><span id="percent">0</span></a></div><div id="toggle-menu"><a class="site-page"><i class="solitude fa-solid fa-bars"></i></a></div></div></div></nav><div class="coverdiv" id="coverdiv"><img class="nolazyload" id="post-cover" src="https://image.ifeng.asia:5243/files/2/66bdc50a5a14f.webp" alt="为第三方系统接入HMS"></div><div id="post-info"><div id="post-firstinfo"><div class="meta-firstline"><a class="post-meta-original" title="该文章为原创文章，注意版权协议">原创</a><span class="post-meta-categories"><a class="post-meta-categories" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a></span><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E7%8E%A9%E6%9C%BA/"><span class="tags-name tags-punctuation"><i class="solitude fa-solid fa-hashtag"></i>玩机</span></a></div></div></div></div><h1 class="post-title">为第三方系统接入HMS</h1><div id="post-meta"><div class="meta-secondline"><span class="post-meta-date" title="发布于 2023-07-14 00:00:00"><i class="post-meta-icon solitude fa-solid fa-calendar-days"></i><time datetime="2023-07-13T16:00:00.000Z">2023-07-13T16:00:00.000Z</time></span><span class="post-meta-wordcount"><i class="post-meta-icon solitude fa-solid fa-file-word" title="文章字数"></i><span class="word-count">582</span><span class="post-meta-separator"></span><i class="post-meta-icon solitude fa-solid fa-clock" title="阅读耗时"></i><span>2 min</span></span><span class="post-meta-position" title="作者IP归属地为China"><i class="post-meta-icon solitude fa-solid fa-map"></i><span>China</span></span><a class="post-meta-pv" href="/posts/bfce.html" title="文章热度"><i class="post-meta-icon solitude fa-solid fa-fire-flame-curved"></i></a></div></div></div><section class="main-hero-waves-area waves-area"><svg class="waves-svg" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto"><defs><path id="gentle-wave" d="M -160 44 c 30 0 58 -18 88 -18 s 58 18 88 18 s 58 -18 88 -18 s 58 18 88 18 v 44 h -352 Z"></path></defs><g class="parallax"><use href="#gentle-wave" x="48" y="0"></use><use href="#gentle-wave" x="48" y="3"></use><use href="#gentle-wave" x="48" y="5"></use><use href="#gentle-wave" x="48" y="7"></use></g></svg></section></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>国内安卓生态并未接入<strong>GCM</strong>&#x2F;<strong>FCM</strong>统一推送体系，国内安卓应用大都采用自带推送服务或第三方推送服务体系，从而导致应用需要常驻后台。</p>
+<p>在国内比较成功的系统级推送体系有<strong>MIPush</strong>和<strong>HMS</strong>等，接入后能够有效减少应用因消息推送的需要而频繁自启的行为，从而减少后台占用达到省电的效果。</p>
+<p>HMS需要使用到<strong>HMS Core</strong>，可以在<a target="_blank" rel="noopener" href="https://consumer.huawei.com/cn/support/appgallery/">华为应用市场</a>和<a target="_blank" rel="noopener" href="https://www.coolapk.com/apk/com.huawei.hwid">酷安</a>下载到。如遇到点击通知无法打开目标应用，可以将HMS Core转为<strong>系统应用</strong>。</p>
+<p>请将HMS Core<strong>设置开机自启</strong>，<strong>加入电池优化白名单</strong>，<strong>锁定后台</strong>。</p>
+<h2 id="已ROOT"><a href="#已ROOT" class="headerlink" title="已ROOT"></a>已ROOT</h2><p>在非华为设备上由于缺乏系统服务配合，只能唤醒目标应用让其自己弹出通知，同时大部分应用在非华为设备上不会主动启用HMS推送服务。为了能够更好接入HMS，我们需要伪装成华为机型，主要有两种方法：使用<a target="_blank" rel="noopener" href="https://github.com/fei-ke/HMSPush">HMSPush</a>或机型修改模块。</p>
+<p>下载安装<a target="_blank" rel="noopener" href="https://github.com/fei-ke/HMSPush/releases/">HMSPush</a>，并在LSP勾选系统框架和HMS Core后重启。将支持HMS的应用勾选作用域，如果你使用了其他方法伪装华为机型则无需进行这一步。打开HMSPush即可看到应用支持列表和状态。</p>
+<h2 id="非ROOT"><a href="#非ROOT" class="headerlink" title="非ROOT"></a>非ROOT</h2><p>下载安装<a target="_blank" rel="noopener" href="https://github.com/LSPosed/LSPatch">LSPatch</a>，选择HMSPush列表里的应用进行修补，其中HMS Core为必须。</p>
+<p>这里以HMS Core为例子：</p>
+<p>新建修补，可以是安装包也可以是已安装的应用。选择便捷模式，点击嵌入模块，模块选择HMSPush。等待修补完成后安装，需要卸载原应用后再安装修补过的应用。完成后重启系统，回到HMSPus查看状态。</p>
+<h2 id="HMS-Core精简"><a href="#HMS-Core精简" class="headerlink" title="HMS Core精简"></a>HMS Core精简</h2><p>由于我们只需要用到HMS的推送服务，所以我们可以对不必要的进程进行精简，从而进一步减少后台占用。</p>
+<p>管理相关进程可以使用<a target="_blank" rel="noopener" href="https://www.coolapk.com/apk/com.byyoung.setting">爱玩机工具箱</a>，<a target="_blank" rel="noopener" href="https://github.com/Tornaco/Thanox">Thanox</a>和<a target="_blank" rel="noopener" href="https://www.myandroidtools.com/">MyAndroidTools</a>等软件。</p>
+<p>请将下面列出的进程打开，其余进程全部关闭。</p>
+<p><strong>服务</strong></p>
+<p> HMSCoreService</p>
+<p> HMSInnerService</p>
+<p> OpenDeviceIdentifierBindService</p>
+<p> OobeService</p>
+<p>HMSStubKitUpdateJobService</p>
+<p> <strong>广播</strong></p>
+<p> OobeOnBootBroadcastReceiver</p>
+<p> HMSOnBootBroadcastReceiver</p>
+<p> <strong>活动</strong></p>
+<p> JumpActivity</p>
+<p>PushEarthquakeActivity</p>
+<p> TileLongClickJumperActivity</p>
+<p> <strong>内容提供者</strong></p>
+<p> HMSFrameworkProvider</p>
+<p> KitProcessAgentCoreProvider</p>
+<p> ModuleQueryProvider</p>
+<p> HmsSettingSearchProvider</p>
+<p> UpdateSettingProvider</p>
+</article><div class="post-copyright"><div class="post-copyright__author_group"><a class="post-copyright__author_img" href="/about/"><img class="post-copyright__author_img_front" src="https://image.ifeng.asia:5243/files/2/66bb20f578fd8.webp"></a><div class="post-copyright__author_name">pzjawaのblog</div><div class="post-copyright__author_desc">K-ON!</div></div><div class="post-tools" id="post-tools"><div class="post-tools-left"><div id="quit-box" onclick="RemoveRewardMask()"></div><div class="reward-link mode"><a class="reward-link-button" href="/rss/atom.xml"><i class="solitude fa-solid fa-seedling"></i>订阅</a></div></div></div><div class="social-share"><a class="social-share-ico icon-qq" target="_blank" rel="noopener" href="https://connect.qq.com/widget/shareqq/index.html?url=https%3A%2F%2Fblog.pzjawa.us.kg%2Fposts%2Fbfce.html&amp;title=%E4%B8%BA%E7%AC%AC%E4%B8%89%E6%96%B9%E7%B3%BB%E7%BB%9F%E6%8E%A5%E5%85%A5HMS&amp;desc=null&amp;summary=null&amp;site=%E4%B8%BA%E7%AC%AC%E4%B8%89%E6%96%B9%E7%B3%BB%E7%BB%9F%E6%8E%A5%E5%85%A5HMS&amp;pics=https%3A%2F%2Fimage.ifeng.asia%3A5243%2Ffiles%2F2%2F66bdc50a5a14f.webp" title="分享到QQ"><i class="solitude fab fa-qq"></i></a><a class="social-share-ico icon-weibo" target="_blank" rel="noopener" href="http://service.weibo.com/share/share.php?url=https%3A%2F%2Fblog.pzjawa.us.kg%2Fposts%2Fbfce.html&amp;title=%E4%B8%BA%E7%AC%AC%E4%B8%89%E6%96%B9%E7%B3%BB%E7%BB%9F%E6%8E%A5%E5%85%A5HMS&amp;pic=https%3A%2F%2Fimage.ifeng.asia%3A5243%2Ffiles%2F2%2F66bdc50a5a14f.webp" title="分享到微博"><i class="solitude fab fa-weibo"></i></a><a class="social-share-ico icon-twitter" target="_blank" rel="noopener" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fblog.pzjawa.us.kg%2Fposts%2Fbfce.html&amp;text=%E4%B8%BA%E7%AC%AC%E4%B8%89%E6%96%B9%E7%B3%BB%E7%BB%9F%E6%8E%A5%E5%85%A5HMS" title="分享到Twitter"><i class="solitude fab fa-twitter"></i></a><a class="social-share-ico icon-facebook" target="_blank" rel="noopener" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fblog.pzjawa.us.kg%2Fposts%2Fbfce.html" title="分享到Facebook"><i class="solitude fab fa-facebook"></i></a><a class="social-share-ico icon-telegram" target="_blank" rel="noopener" href="https://t.me/share/url?url=https%3A%2F%2Fblog.pzjawa.us.kg%2Fposts%2Fbfce.html&amp;text=%E4%B8%BA%E7%AC%AC%E4%B8%89%E6%96%B9%E7%B3%BB%E7%BB%9F%E6%8E%A5%E5%85%A5HMS" title="分享到Telegram"><i class="solitude fab fa-telegram"></i></a><a class="social-share-ico icon-whatsapp" target="_blank" rel="noopener" href="https://api.whatsapp.com/send?text=%E4%B8%BA%E7%AC%AC%E4%B8%89%E6%96%B9%E7%B3%BB%E7%BB%9F%E6%8E%A5%E5%85%A5HMS https%3A%2F%2Fblog.pzjawa.us.kg%2Fposts%2Fbfce.html" title="分享到WhatsApp"><i class="solitude fab fa-whatsapp"></i></a><a class="social-share-ico icon-linkedin" target="_blank" rel="noopener" href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3A%2F%2Fblog.pzjawa.us.kg%2Fposts%2Fbfce.html&amp;title=%E4%B8%BA%E7%AC%AC%E4%B8%89%E6%96%B9%E7%B3%BB%E7%BB%9F%E6%8E%A5%E5%85%A5HMS&amp;summary=null&amp;source=%E4%B8%BA%E7%AC%AC%E4%B8%89%E6%96%B9%E7%B3%BB%E7%BB%9F%E6%8E%A5%E5%85%A5HMS" title="分享到LinkedIn"><i class="solitude fab fa-linkedin"></i></a><div class="social-share-ico icon-link" onclick="utils.copy(&quot;https://blog.pzjawa.us.kg/posts/bfce.html&quot;)" title="复制文章链接"><i class="solitude fas fa-link"></i></div><div class="social-share-ico icon-qrcode" title="使用手机扫码阅读这篇文章"><i class="solitude fas fa-qrcode"></i><div class="share-main"><div class="share-main-all"><div id="qrcode"></div><div class="reward-dec">使用手机扫码阅读这篇文章</div></div></div><script pjax>typeof QRCode === 'function' && new QRCode(document.getElementById("qrcode"), 'https://blog.pzjawa.us.kg/posts/bfce.html');
+window.addEventListener('DOMContentLoaded', () => {
+    new QRCode(document.getElementById("qrcode"), 'https://blog.pzjawa.us.kg/posts/bfce.html');
+});
+</script></div></div><div class="post-copyright__notice"><span class="post-copyright-info">本文是原创文章，采用<a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">CC BY-NC-SA 4.0</a>协议，完整转载请注明来自<a href="/">pzjawaのblog</a></span></div></div><div class="post-tools-right"><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E7%8E%A9%E6%9C%BA/"><span class="tags-punctuation"><i class="solitude fa-solid fa-hashtag"></i>玩机<span class="tagsPageCount">3</span></span></a></div></div></div><nav class="needEndHide pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/5b16.html"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">如何看待胖猫事件5.19日通报的反转结局</div></div></a></div><div class="next-post pull-right"><a href="/posts/a6b9.html"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">华为手机升降级</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="solitude fa-solid fa-star"></i><span>喜欢这篇的人也看了</span><div class="relatedPosts-link"><a onclick="event.preventDefault(); toRandomPost();" href="javascript:void(0);" rel="external nofollow" data-pjax-state="">随便逛逛</a></div></div><div class="relatedPosts-list"><div><a href="/posts/a6b9.html" title="华为手机升降级"><img class="cover" src="https://image.ifeng.asia:5243/files/2/66be928de3f6c.webp" alt="cover"><div class="content is-center"><div class="title">华为手机升降级</div></div></a></div><div><a href="/posts/9c1a.html" title="华为玩机指北"><img class="cover" src="https://image.ifeng.asia:5243/files/2/66bc8e56aa954.webp" alt="cover"><div class="content is-center"><div class="title">华为玩机指北</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-content"><div class="card-info-avatar is-center"><div class="author-info__top-group"><div class="author-info__sayhi" id="author-info__sayhi" onclick="sco.changeSayHelloText()">sayhello.morning</div></div></div><div class="avatar-img-group"><img class="avatar-img" alt="头像" src="https://image.ifeng.asia:5243/files/2/66bb20f578fd8.webp"><div class="avatar-sticker"><img class="avatar-sticker-img" src="https://www.emojiall.com/images/60/microsoft-teams/1f60b.png" alt="心情贴纸"></div></div><div class="author-info__description_group"><div class="author-info__description">欢迎来到我的blog</div><div class="author-info__description2">分享自己对编程的<b>热爱</b>，对美好生活的<b>向往</b>，对知识海洋<b>探索历程</b></div></div><div class="author-info__bottom-group"><a class="author-info__bottom-group-left" href="/about/"><div class="author-info__name">PZJAWA</div><div class="author-info__desc">K-ON!</div></a><div class="card-info-social-icons is-center"><a class="social-icon" target="_blank" rel="noopener" href="https://github.com/pzjawa" title="Github"><i class="solitude  fab fa-github"></i></a><a class="social-icon" target="_blank" rel="noopener" href="https://space.bilibili.com/1919386217" title="Bilibili"><i class="solitude  fab fa-bilibili"></i></a><a class="social-icon" href="mailto:pzjawa@qq.com" title="Email"><i class="solitude  fas fa-envelope"></i></a></div></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="solitude fa-solid fa-bars"></i><span>文章目录</span></div><div class="toc-content" id="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B7%B2ROOT"><span class="toc-text">已ROOT</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9D%9EROOT"><span class="toc-text">非ROOT</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HMS-Core%E7%B2%BE%E7%AE%80"><span class="toc-text">HMS Core精简</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="solitude fa-solid fa-map"></i><span>最近发布</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/5b16.html" title="如何看待胖猫事件5.19日通报的反转结局"><img alt="如何看待胖猫事件5.19日通报的反转结局" src="https://image.ifeng.asia:5243/files/2/66bc1c2fbcaf5.webp"></a><div class="content"><span class="title" href="/posts/5b16.html" title="如何看待胖猫事件5.19日通报的反转结局">如何看待胖猫事件5.19日通报的反转结局</span><span class="article-recent_post_categories" href="/posts/5b16.html">生活</span></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/bfce.html" title="为第三方系统接入HMS"><img alt="为第三方系统接入HMS" src="https://image.ifeng.asia:5243/files/2/66bdc50a5a14f.webp"></a><div class="content"><span class="title" href="/posts/bfce.html" title="为第三方系统接入HMS">为第三方系统接入HMS</span><span class="article-recent_post_categories" href="/posts/bfce.html">技术</span></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/a6b9.html" title="华为手机升降级"><img alt="华为手机升降级" src="https://image.ifeng.asia:5243/files/2/66be928de3f6c.webp"></a><div class="content"><span class="title" href="/posts/a6b9.html" title="华为手机升降级">华为手机升降级</span><span class="article-recent_post_categories" href="/posts/a6b9.html">技术</span></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/9c1a.html" title="华为玩机指北"><img alt="华为玩机指北" src="https://image.ifeng.asia:5243/files/2/66bc8e56aa954.webp"></a><div class="content"><span class="title" href="/posts/9c1a.html" title="华为玩机指北">华为玩机指北</span><span class="article-recent_post_categories" href="/posts/9c1a.html">技术</span></div></div></div></div></div></div></main><footer id="footer"><div id="st-footer-bar"><div class="footer-logo"><span>pzjawa</span></div><div class="footer-bar-description">Articles from pzjawa.</div><a class="footer-bar-link" href="/about/">Learn more</a></div><div id="footer_deal"></div><div id="st-footer"></div><div id="footer-bar"><div class="footer-bar-links"><div class="footer-bar-left"><div class="copyright">© 2022 - 2024 By&nbsp;<a class="footer-bar-link" href="/">PZJAWA</a></div></div><div class="footer-bar-right"><a class="footer-bar-link" target="_blank" rel="noopener" href="https://github.com/everfu/hexo-theme-solitude" alt="Theme">Theme</a><a class="footer-bar-link" href="/rss/atom.xml" alt="RSS">RSS</a><a class="footer-bar-link cc" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" aria-label="copyright"><i class="solitude fa-solid fa-copyright"></i><i class="solitude fa-brands fa-creative-commons-by"></i><i class="solitude fa-brands fa-creative-commons-nc"></i><i class="solitude fa-brands fa-creative-commons-nd"></i></a></div></div></div></footer></div><!-- right_menu--><!-- inject body--><div><script src="/js/utils.js?v=2.0.7"></script><script src="/js/main.js?v=2.0.7"></script><script src="/js/third_party/waterfall.min.js?v=2.0.7"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/pjax/0.2.8/pjax.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script><script src="/js/third_party/universe.min.js?v=2.0.7"></script><script>dark()
+</script><script src="https://cdnjs.cloudflare.com/ajax/libs/node-snackbar/0.1.16/snackbar.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.36/fancybox/fancybox.umd.min.js"></script><script src="/js/covercolor/local.js?v=2.0.7"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js"></script><div class="js-pjax"></div></div><!-- pjax--><script>const pjax = new Pjax({
+    elements: 'a:not([target="_blank"])',
+    selectors: ['title','#body-wrap','#site-config','meta[name="description"]','.js-pjax','meta[property^="og:"]','#config-diff'],
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+})
+
+document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+})
+
+document.addEventListener('pjax:complete', () => {
+    window.refreshFn()
+
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+        const newScript = document.createElement('script')
+        const content = item.text || item.textContent || item.innerHTML || ""
+        Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+        newScript.appendChild(document.createTextNode(content))
+        item.parentNode.replaceChild(newScript, item)
+    })
+
+    GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+})
+
+document.addEventListener('pjax:error', (e) => {
+    if (e.request.status === 404) {
+        pjax.loadUrl('/404.html')
+    }
+})</script><!-- theme--><script>initTheme = () => {
+    let isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const cachedMode = utils.saveToLocal.get('theme');
+    if (cachedMode === undefined) {
+        const nowMode =
+            isDarkMode ? 'dark' : 'light'
+        document.documentElement.setAttribute('data-theme', nowMode);
+    } else {
+        document.documentElement.setAttribute('data-theme', cachedMode);
+    }
+    typeof rm === 'object' && rm.mode(cachedMode === 'dark' && isDarkMode)
+}
+initTheme()</script><!-- google adsense--><!-- search--><!-- Tianli-Talk--><!-- music-->
+      <div id="sakana" style="position:fixed;right:0;bottom:0px;"></div>
+      <script async onload='initSakanaWidget({"character":"takina","enable":true,"enable_mobile":true,"size":100,"autoFit":false,"bottom":"0px","controls":false,"stroke":{"color":"#b4b4b4","width":10},"threshold":0.1,"rotate":0,"customCharacters":[]})' src="https://cdn.jsdelivr.net/npm/sakana-widget@2.3.0/lib/sakana.min.js"></script>
+      <script>
+      function log(msg) {
+        console.log("[hexo-sakana] " + msg);
+      }
+
+      function initSakanaWidget(config) {
+        if (
+          !config.enable_mobile &&
+          window.navigator.userAgent.match(
+            /(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i
+          )
+        ) {
+          log(
+            '检测为移动端，且配置中未开启在移动端启用组件，hexo-sakana 已禁用'
+          );
+          return;
+        }
+        for (character of config.customCharacters) {
+          if (!["takina", "chisato"].includes(character.base)) {
+            log(`无效基础角色 ${character.base}，取消注册`);
+            continue;
+          }
+          if (character.name === "") {
+            log("名称为空，取消注册");
+            continue;
+          }
+          const originCharacter = SakanaWidget.getCharacter(character.base);
+          originCharacter.initialState = {
+            ...originCharacter.initialState,
+            ...character,
+          };
+          originCharacter.image = !character.image ? originCharacter.image : character.image
+          SakanaWidget.registerCharacter(character.name, originCharacter);
+          log(`注册自定义角色：${character.name}`)
+        }
+        new SakanaWidget({
+          character: config.character,
+          size: config.size,
+          autoFit: config.autoFit,
+          controls: config.controls,
+          stroke: config.stroke,
+          threshold: config.threshold,
+          rotate: config.rotate,
+        }).mount("#sakana");
+      }
+  </script>
+    </body></html><script>const posts=["posts/5b16.html","posts/bfce.html","posts/a6b9.html","posts/9c1a.html"];function toRandomPost(){ pjax.loadUrl(GLOBAL_CONFIG.root+posts[Math.floor(Math.random()*posts.length)]); }</script>
