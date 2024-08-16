@@ -1,0 +1,149 @@
+authorinfo:
+  leftTags:
+    - 🤖️ 数码科技爱好者
+    - 🔍 分享与热心帮助
+  rightTags:
+    - 脚踏实地行动派 🏃
+    - 🏠 智能家居小能手
+  image: https://image.ifeng.asia:5243/files/2/66bb20f578fd8.webp
+
+title: 关于本站
+
+contentinfo: # 顶部个人信息展示
+  sup: 你好，很高兴认识你👋
+  name: 我是pzjawa # 名称
+  title: 是一名学生、独立开发者 # 介绍
+  tip: 追求
+  slogan: 源于<br>热爱而去创造
+  mask:
+    - 出色的设计
+    - 高效的程序
+    - 人性化体验
+    - 优秀的产品
+
+skills: # 根据需求添加
+  title: 技能
+  subtitle: 开启创造力
+  tags:
+    - title: Git
+      icon: https://image.ifeng.asia:5243/files/2/66bc662c7f973.webp
+      color: "#df5b40"
+    - title: Github
+      icon: https://image.ifeng.asia:5243/files/2/66bc6696e6f44.webp
+      color: "#161715"
+    - title: NextJS
+      icon: https://image.ifeng.asia:5243/files/2/66bc66b5488bd.webp
+      color: "#050404"
+    - title: Photoshop
+      icon: https://image.ifeng.asia:5243/files/2/66bebc3b7dc9c.webp
+      color: "#33aaf9"
+    - title: Pycharm
+      icon: https://image.ifeng.asia:5243/files/2/66bc66b54ecd1.webp
+      color: "#f1f3e8"
+    - title: Python
+      icon: https://image.ifeng.asia:5243/files/2/66bc67587e222.webp
+      color: "#3973a3"
+    - title: TaliwindCSS
+      icon: https://image.ifeng.asia:5243/files/2/66bc66b53b585.webp
+      color: "#2bbbba"
+    - title: VSCode
+      icon: https://image.ifeng.asia:5243/files/2/66bc66b564528.webp
+      color: "#f2f3ed"
+
+careers:
+  title: 生涯
+  subtitle: 无限进步
+  items:
+    - school: 无限可能
+      major: 学习
+      color: "#002fa7"
+  image: https://image.ifeng.asia:5243/files/2/66beb443896d0.webp
+
+personalities:
+  tips: 性格
+  title: 调停者
+  color: "#458964"
+  type: INFP-T
+  image: /INFP_T.svg
+  link: https://www.16personalities.com/
+  linkText: 16personalities
+  typeLink: https://www.16personalities.com/ch/infp-人格
+  typeName: 调停者
+  myphoto: https://image.ifeng.asia:5243/files/2/66beab15926d2.webp
+
+motto:
+  title: 座右铭
+  prefix: 井底之蛙不识海，
+  content: 却知晓天空之蓝。
+expertise:
+  title: 特长
+  prefix: 向往二次元的
+  specialist: 御宅
+  content: 二次元指数
+  level: MAX
+
+game1:
+  title: 爱好游戏
+  img: https://image.ifeng.asia:5243/files/2/66beaa26932e4.webp
+  icon: fas fa-gamepad
+  subtitle: Minecraft
+  tips_left: 
+  tips_right: ID pzjawa
+
+game2:
+  title: 爱好番剧
+  img: https://image.ifeng.asia:5243/files/2/66bea5280c486.webp
+  subtitle: 月がきれい
+  icon: fas fa-moon
+  tips_right: 
+
+likes:
+  - type: like-technology
+    bg: https://image.ifeng.asia:5243/files/2/66bea507430ce.webp
+    tips: 关注偏好
+    title: 数码科技
+    subtips: 软件硬件
+  - type: like-music
+    bg: https://image.ifeng.asia:5243/files/2/66bea486a2093.webp
+    tips: 音乐偏好
+    title: ACG,POP,J-Rock
+    subtips: 与 pzjawa 一起欣赏更多音乐
+    button: true
+    button_text: 更多推荐
+    button_link: https://y.qq.com/n/ryqq/playlist/8245153544
+
+tj: # 统计
+  provider: # 值为 51la（51la网站统计）或 baidu（百度统计）
+  url:  # 需要到51la官网注册自行获取 or 自行搭建 Heo 的 百度统计项目，填写访问地址即可
+  img: https://7.isyangs.cn/1/65eb2e9109826-1.png # 背景
+
+oneself: # 按需填写
+  location: 中国，广东省 # 所在位置
+  birthYear: 2006 # 生日
+  university: 无限进步 # 毕业学校
+  major: 无限可能 # 专业
+  occupation: 学生 # 职位
+  map: # 你所在位置的地图
+    light: https://image.ifeng.asia:5243/files/2/66bea486be4d9.webp # 白天
+    dark: https://image.ifeng.asia:5243/files/2/66bea48704fc2.webp # 夜晚
+
+# 自定义
+cause:
+  tip: 
+  title: 关于本站
+  content:
+    <br>希望你能在本站找到对你有帮助的东西~
+tenyear:
+  tips: 十年之约
+  title: 一个人的寂寞，一群人的狂欢。
+  start: 2022年10月01日
+  end: 2032年10月01日
+
+award:
+  enable: true
+  description: 感谢你们，让我感受到写博客这件事情能够给你们创造了价值。
+  tips: 总金额：¥ {sum} # 必须带 {sum}，否则无法显示总金额
+rewardList: # 底部捐赠
+  - name: pzjawa
+    money: 0
+    time: 2022-10-01

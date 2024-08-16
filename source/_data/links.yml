@@ -1,0 +1,11 @@
+banner_suffix: 
+links:
+   - class_name: 志同道合的朋友们
+     descr: 携手共进
+     type: item
+     suffix: 
+     link_list:
+       - name: pzjawa # 友链名称
+         link: https://blog.pzjawa.us.kg # 友链地址
+         avatar: https://image.ifeng.asia:5243/files/2/66bb20f578fd8.webp # 显示头像
+         descr: K-ON! # 友链简介

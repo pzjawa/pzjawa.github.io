@@ -1,0 +1,21 @@
+- class_name: 生产力
+  description: 提升自己生产效率的硬件设备
+  equipment_list:
+    - name: XIAOMI 14
+      specification: 白色 / 12+256
+      description: 徕卡光学 不负此刻
+      image: https://image.ifeng.asia:5243/files/2/66becc734f626.webp
+      link: https://www.mi.com/xiaomi-14
+- class_name: 出行
+  description: 用来出行的实物及设备
+  equipment_list:
+    - name: XIAOMI AIR 3 SE
+      specification: 白色
+      description: 买手机送的还要什么自行车
+      image: https://image.ifeng.asia:5243/files/2/66beccb984e7d.webp
+      link: https://www.mi.com/shop/buy/detail?product_id=18538
+    - name: OPPO Watch SE
+      specification: 水墨灰
+      description: 续航是短板，勉强当个大号手环
+      image: https://image.ifeng.asia:5243/files/2/66becc7394d93.webp
+      link: https://www.opposhop.cn/cn/web/products/8891.html    
