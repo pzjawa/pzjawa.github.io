@@ -360,7 +360,7 @@ footer:
   privacy: # /privacy/ # Privacy policy
   license:  https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh # License
   links:
-    - name: Theme
+    - name: 主题
       url: https://github.com/everfu/hexo-theme-solitude
     - name: 萌ICP备20224131号
       url: https://icp.gov.moe/?keyword=20224131
