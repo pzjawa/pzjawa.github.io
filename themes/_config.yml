@@ -18,8 +18,8 @@
 site:
   name:
     class: text # text / i_class / img
-    custom: pzjawa # Solitude / fas fa-ghost / /img/pwa/favicon.ico
-  siteIcon: https://image.ifeng.asia:5243/files/2/66bb20f578fd8.webp # Site icon / 网站图标
+    custom: Solitude # Solitude / fas fa-ghost / /img/pwa/favicon.ico
+  icon: /img/pwa/favicon.ico # Site icon / 网站图标
 # --------------------------- end ---------------------------
 
 # --------------------------- start ---------------------------
@@ -29,31 +29,31 @@ nav:
   # Left Box
   # 左侧盒子
   group:
-    project: # name
-      主页: https://pzjawa.us.kg/ || https://image.ifeng.asia:5243/files/2/66bb20f578fd8.webp # name: url || icon
+  #  project: # name
+  #    Solitude: https://github.com/everfu/hexo-theme-solitude || /img/pwa/favicon.ico # name: url || icon
 
   # Menu
   # 菜单
   menu:
-    首页: / # name: link
-    文库: # name
-      文章: /archives/ || fas fa-folder-closed # item name: link || icon
-      分类: /categories/ || fas fa-clone
-      标签: /tags/ || fas fa-tags
-      # Friends:
-      # Moments: /moments/ || fas fa-wifi
-      # Treasure: javascript:travelling() || fas fa-gift
-    我的:
-      # Toobox: /tlink/ || fas fa-toolbox
-      # Music: /music/ || fas fa-music
-      友链: /links/ || fas fa-user-group
-      装备: /equipment/ || fas fa-laptop
-      关于: /about/ || fas fa-user
+    # Home: / # name: link
+    # Article: # name
+    #   Archives: /archives/ || fas fa-folder-closed # item name: link || icon
+    #   Categories: /categories/ || fas fa-clone
+    #   Tags: /tags/ || fas fa-tags
+    # Friends:
+    #   Moments: /moments/ || fas fa-wifi
+    #   Links: /links/ || fas fa-user-group
+    #   Treasure: javascript:travelling() || fas fa-gift
+    # Myself:
+    #   Equipment: /equipment/ || fas fa-laptop
+    #   Toobox: /tlink/ || fas fa-toolbox
+    #   Music: /music/ || fas fa-music
+    # About: /about/
 
   # Right button
   # 右侧按钮
   right:
-    random: true # Random article / 随机文章按钮
+    random: false # Random article / 随机文章按钮
     custom:
     #  - name: Start # name
     #    url: https://www.travellings.cn/go.html # Jump link
@@ -66,45 +66,37 @@ nav:
 # Home Top Banner
 # 首页顶部
 hometop:
-  enable: true
+  enable: false
   banner:
-    title: pzjawaのblog
-    url: BLOG.PZJAWA.US.KG
+    title: # Tranquility <br>and love life / 宁静致远 <br> 热爱生活 # Title
+    url: Hexo Theme Solitude
     icon:
-      Git:
-        img: https://image.ifeng.asia:5243/files/2/66bc662c7f973.webp
-        color: "#df5b40"
-      Github:
-        img: https://image.ifeng.asia:5243/files/2/66bc6696e6f44.webp
-        color: "#161715"
-      NextJS:
-        img: https://image.ifeng.asia:5243/files/2/66bc66b5488bd.webp
-        color: "#050404"
-      Photoshop:
-        img: https://image.ifeng.asia:5243/files/2/66bebc3b7dc9c.webp
-        color: "#33aaf9"
-      Pycharm:
-        img: https://image.ifeng.asia:5243/files/2/66bc66b54ecd1.webp
-        color: "#f1f3e8"
-      Python:
-        img: https://image.ifeng.asia:5243/files/2/66bc67587e222.webp
-        color: "#3973a3"
-      TaliwindCSS:
-        img: https://image.ifeng.asia:5243/files/2/66bc66b53b585.webp
-        color: "#2bbbba"
-      VSCode:
-        img: https://image.ifeng.asia:5243/files/2/66bc66b564528.webp
-        color: "#f2f3ed"
+      # HTML: # name
+      #   img: https://i.postimg.cc/vBWVnY8q/html.png # url
+      #   color: "#e9572b" # color
+      # JS:
+      #   img: https://i.postimg.cc/3N10Ltv2/js.png
+      #   color: "#f7cb4f"
+      # Docker:
+      #   img: https://i.postimg.cc/8Pk6Fg24/docker.png
+      #   color: "#57b6e6"
+      # Flutter:
+      #   img: https://i.postimg.cc/hPC7T3gB/flutter.png
+      #   color: "#ffffff"
+      # WebPack:
+      #   img: https://i.postimg.cc/dVLZBmtT/webpack.png
+      #   color: "#2e3a41"
+      # Git:
+      #   img: https://i.postimg.cc/nhgjwjCS/git.png
+      #   color: "#df5b40"
   group:
-    技术: /categories/技术/ || fas fa-fire || linear-gradient(to right,#f65,#ffbf37)
-    生活: /categories/生活/ || fas fa-book || linear-gradient(to right,#358bff,#15c6ff)
-    博客: /categories/博客/ || fas fa-star || linear-gradient(to right,#18e7ae,#1eebeb)
+    # 热门: /tags/Fire/ || fas fa-fire || linear-gradient(to right,#f65,#ffbf37)
   recommendList:
-    sup: 欢迎光临
-    title: Ciallo～(∠·ω< )⌒★
-    url: https://blog.pzjawa.us.kg/
-    img: https://image.ifeng.asia:5243/files/2/66bc633424688.webp
-    color: "#352e34"
+    sup: 置顶
+    title: Solitude 官方文档
+    url: https://solitude.js.org/
+    img: /img/default.avif
+    color: "none"
 
 # Article Top Banner
 # 文章推荐轮播图
@@ -130,7 +122,7 @@ aside:
     noSticky: "about"
     Sticky: "newestPost,allInfo"
   # 菜单栏位置(0: 左 1: 右)
-  position: 0 # Sidebar positioning(0: left 1: right)
+  position: 1 # Sidebar positioning(0: left 1: right)
 
   # --------------------------- start ---------------------------
   # Information card
@@ -138,66 +130,33 @@ aside:
   card:
     style: 0 # 0: default 1: style 1 2: style 2
     author:
-      img: https://image.ifeng.asia:5243/files/2/66bb20f578fd8.webp # url (avatar)
-      sticker: https://www.emojiall.com/images/60/microsoft-teams/1f60b.png # url (sticker), 24x24
+      img: /img/avatar.avif # url
+      sticker: # url, 24x24 size
     url: /about/ # link / 点击头像跳转链接
     background: # https://s3.qjqq.cn/47/663af296b85f4.webp!color # Background image(Invalid if style is 0)
     # Content(Invalid if style is 0)
     # 内容(Style 0 无效)
-    content: 欢迎来到我的blog
-    content2: 分享自己对编程的<b>热爱</b>，对美好生活的<b>向往</b>，对知识海洋<b>探索历程</b> # Introduction (Invalid if style is 1)
-    sayhello: # Style 2 is invalid
-      morning: 早上好，新的一天来了 ✨
-      noon: 是时候小息一会了 😌
-      afternoon: 下午茶时间 🍵
-      night: 早睡早起 🛏
-      goodnight: 晚安 😴
+    content: # 这是我的博客 / This is my Blog
+    content2: # 一个热爱生活的人 / A person who loves life
+    # Style 2 is invalid
+    # Style 2 无效
+    sayhello:
+      morning: ✨ Good morning. It's a new day
+      noon: It's time for a midday break
+      afternoon: Tea time. 🍵
+      night: early bedtime
+      goodnight: Good night 😴
     # Style 2 is invalid, Triggered when sayhello is clicked.
     # Style 2 无效, 点击 sayhello 时触发
     sayhello2:
-      - (⁎⁍̴̛ᴗ⁍̴̛⁎)
-      - ╰(✿´⌣`✿)╯♡
-      - (๑•́ ₃ •̀๑)ｴｰ
-      - (๑ơ ₃ ơ)♥
-      - (๑¯ω¯๑)
-      - (ง •̀_•́)ง‼
-      - ٩(๑`^´๑)۶
-      - ٩(๑òωó๑)۶
-      - (⌒ω⌒)
-      - ٩(๑˃̵ᴗ˂̵๑)۶
-      - ʕ•̀ω•́ʔ✧
-      - ( つ•̀ω•́)つ
-      - (•ө•)♡
-      - ( ๑͒･(ｴ)･๑͒)
-      - ꒰ ๑͒ ･౪･๑͒꒱
-      - σ(o’ω’o)
-      - (๑•́ ₃ •̀๑)/
-      - (･’ω’･)
-      - (｡◕ ∀ ◕｡)
-      - ╲(｡◕‿◕｡)╱
-      - (´｡✪ω✪｡｀)
-      - (✿╹◡╹)
-      - (* Ŏ∀Ŏ)
-      - (๑◔‿◔๑)
-      - (δωδ)」
-      - (･◡ु‹ )
-      - ٩(๑òωó๑)۶
-      - (灬╹ω╹灬)
-      - (..＞◡＜..)
-      - ოර⌄රო
-      - (●☌◡☌●)
-      - (●･̆⍛･̆●)
-      - (●´ϖ`●)
-      - (◍3◍)
-      - ٩( ╹▿╹ )۶
-      - (｡╹ω╹｡)
-
+      # - You'll make it.
+      # - You're gonna make it.
+      # - Good luck, stranger.
     # social
     # 社交信息图标
     information:
-     Github: https://github.com/pzjawa || fab fa-github # Name: link || icon
-     Bilibili: https://space.bilibili.com/1919386217 || fab fa-bilibili
-     Email: mailto:pzjawa@qq.com || fas fa-envelope
+    #  Github: https://github.com/everfu || fab fa-github # Name: link || icon
+    #  Bilibili: https://space.bilibili.com/1329819902 || fab fa-bilibili
   # --------------------------- end ---------------------------
 
   # --------------------------- start ---------------------------
@@ -256,20 +215,20 @@ aside:
     postcount: true
     # Total number of words
     # 总字数
-    wordcount: true
+    wordcount: false
     # PV
     pv: true
     # UV
     uv: true
     # Last update date
     # 最后更新日期
-    updatetime: false
+    updatetime: true
     # Website creation time
     # 网站创建时间
     runtimeenable: true
     # Format: yyyy-MM-dd hh-mm-ss
     # 格式: yyyy-MM-dd hh-mm-ss
-    runtime: "2022-10-01 00:00:00"
+    runtime: "2023-04-20 00:00:00"
   # --------------------------- end ---------------------------
 # --------------------------- end ---------------------------
 
@@ -352,16 +311,16 @@ post:
   meta:
     # Release date
     # 发布日期
-    date: true
+    date: false
     # Update date
     # 更新日期
     updated: false
     # Location
     # 位置
-    locate: true
+    locate: false
     # Number of words
     # 字数
-    wordcount: true
+    wordcount: false
     # uv
     readtime: false
     # pv
@@ -382,8 +341,8 @@ post:
     # 打赏列表
     list:
       # - name: Github Sponsor
-      #   qcode: 
-      #   url: 
+      #   qcode: https://s3.qjqq.cn/47/661ba900c4bc1.webp!color
+      #   url: https://github.com/sponsors/everfu
       #   color: var(--efu-black)
 
   # Share icon
@@ -391,39 +350,39 @@ post:
   share:
     enable: false
     list:
-      - qq
-      - weibo
-      - twitter
-      - facebook
-      - telegram
-      - whatsapp
-      - linkedin
-      - link
-      - qrcode
-  rss: rss/atom.xml
+      # - qq
+      # - weibo
+      # - twitter
+      # - facebook
+      # - telegram
+      # - whatsapp
+      # - linkedin
+      # - link
+      # - qrcode
+  rss: # /atom.xml
   # Article reading progress
   # 文章封面取色
   covercolor:
-    enable: true
+    enable: false
     # local: local color / api: api color
-    mode: api
+    mode: local
     # api address / api 地址
     api: https://api.qjqq.cn/api/Imgcolor?img=
     # Storage / 缓存时间
     time: 43200000
   footer:
-    enable: true
-    desc: Articles from pzjawa. / 文章来自 Ever Fu # description
+    enable: false
+    desc: # Articles from Ever Fu. / 文章来自 Ever Fu # description
     button: # Button
       enable: true
-      name: Learn more / 了解更多
+      name: # Learn more / 了解更多
       url: /about/
 # --------------------------- end ---------------------------
 
 # --------------------------- start ---------------------------
 # Custom Theme Color
 theme_color:
-  dark: "#002fa7" # Dark mode
+  dark: "#ffc848" # Dark mode
   dark_op: "#f2b94b23" # Dark mode transparent
   dark_op_deep: "#f2b94bdd" # Dark mode transparent dark
   dark_none: "#f2b94b00" # Dark mode transparent colorless
@@ -449,7 +408,7 @@ display_mode:
 # Related articles
 # 相关文章
 related_post:
-  enable: true
+  enable: false
   limit: 2
   # created: release date / updated: update date
   # created: 发布日期 / updated: 更新日期
@@ -464,7 +423,7 @@ footer:
   information:
     author: false # img url / false
     left:
-      # Github: https://github.com/efuo || fab fa-github # Name: link || icon
+      # Github: https://github.com/everfu || fab fa-github # Name: link || icon
       # Mail: mailto:o@efu.me || fab fa-envelope
     right:
       # Bilibili: https://space.bilibili.com/1329819902 || fab fa-bilibili
@@ -490,26 +449,24 @@ footer:
   # Please do not delete the theme information, this is respect for the author
   # 请不要删除主题信息，这是对作者的尊重
   links:
-    - name: 主题
+    - name: Theme
       url: https://github.com/everfu/hexo-theme-solitude
-    - name: 萌ICP备20224131号
-      url: https://icp.gov.moe/?keyword=20224131
-    - name: RSS
-      url: /rss/atom.xml
+    # - name: RSS
+    #   url: /atom.xml
 # --------------------------- end ---------------------------
 
 # --------------------------- start ---------------------------
 # 404 page
 # 404 页面
 errorpage:
-  img: https://image.ifeng.asia:5243/files/2/66bb20f578fd8.webp
-  text: =awa= 页面走丢了 # Text
+  img: /img/404.avif
+  text: =awa= Page NotFound # Text
   recommendList: true
 # --------------------------- end ---------------------------
 
 # --------------------------- start ---------------------------
 # Says Page
-# 即可短文
+# 即刻短文
 says:
   enable: false
   home_mini: false
@@ -627,7 +584,7 @@ lazyload:
 loading:
   # Full screen loading
   # 全屏加载
-  fullpage: true
+  fullpage: false
   # Pace loading
   # Pace 加载
   pace: true
@@ -657,10 +614,10 @@ highlight:
 # --------------------------- start ---------------------------
 # Lightbox
 # 图片灯箱
-lightbox: true
+lightbox: false
 # warning: Please select any one, but cannot be turned on at the same time.
 # 警告: 请任选其一，但不能同时开启。
-fancybox: true # fancybox
+fancybox: false # fancybox
 mediumZoom: false # mediumZoom
 # --------------------------- end ---------------------------
 
@@ -698,7 +655,7 @@ OpenGraph:
 # 字数统计
 # warning: Please install the hexo-wordcount plugin first.
 # 警告: 请先安装 hexo-wordcount 插件。
-wordcount: true
+wordcount: false
 # --------------------------- end ---------------------------
 
 # --------------------------- start ---------------------------
@@ -886,11 +843,12 @@ extends:
   # Insert in head
   # 插入到 head
   head:
+  #  - <script src="https://cdn.bootcdn.net/ajax/libs/pace/1.2.4/pace.min.js"></script>
 
   # Insert in body
   # 插入到 body
   body:
-
+  #  - <script src="https://cdn.bootcdn.net/ajax/libs/pace/1.2.4/pace.min.js"></script>
 # --------------------------- end ---------------------------
 
 # --------------------------- start ---------------------------
@@ -985,9 +943,9 @@ memorial:
 # When the user exits the page, modify the title
 # 当用户退出页面时，修改标题
 lure:
-  enable: true
+  enable: false
   jump: 404 Not Found
-  back: ヾ(≧∇≦*)ゝ嘿嘿，上当了吧
+  back: ヾ(≧∇≦*)ゝHey, hey, you fell for it.
 # --------------------------- end ---------------------------
 
 # --------------------------- start ---------------------------
