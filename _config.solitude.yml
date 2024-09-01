@@ -442,7 +442,7 @@ display_mode:
   type: auto
   # After opening, the dark mode will display the starry sky background
   # 开启后深色模式会显示星空背景
-  universe: false
+  universe: true
 # --------------------------- end ---------------------------
 
 # --------------------------- start ---------------------------
@@ -612,7 +612,7 @@ copy:
 # Lazyload
 # 图片懒加载
 lazyload:
-  enable: false
+  enable: true
   # post, site
   field: site
   # 加载时替换图
