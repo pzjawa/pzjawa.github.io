@@ -68,8 +68,8 @@ nav:
 hometop:
   enable: true
   banner:
-    title: pzjawaのblog
-    url: BLOG.PZJAWA.US.KG
+    title: pzjawaのBlog
+    url: BLOG.PZJ.US.KG
     icon:
       Git:
         img: https://image.ifeng.asia:5243/files/2/66bc662c7f973.webp
@@ -102,7 +102,7 @@ hometop:
   recommendList:
     sup: 欢迎光临
     title: Ciallo～(∠·ω< )⌒★
-    url: https://blog.pzjawa.us.kg/
+    url: https://blog.pzj.us.kg/
     img: https://image.ifeng.asia:5243/files/2/66bc633424688.webp
     color: "#352e34"
 

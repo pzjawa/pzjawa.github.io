@@ -3,9 +3,9 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: pzjawaのblog
+title: pzjawaのBlog
 subtitle: 'K-ON!'
-description: 'pzjawaのblog'
+description: 'pzjawaのBlog'
 keywords: pzjawa,blog,hexo,solitude,博客,网站
 author: PZJAWA
 language: zh-CN
@@ -13,7 +13,7 @@ timezone: 'Asia/Shanghai'
 
 # URL
 ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
-url: https://blog.pzjawa.us.kg
+url: https://blog.pzj.us.kg
 permalink: posts/:abbrlink.html
 permalink_defaults:
 pretty_urls:
