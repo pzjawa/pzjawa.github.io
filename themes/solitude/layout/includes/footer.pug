@@ -21,7 +21,7 @@ div#footer_deal
 
     if theme.footer.information.author
         div#footer_mini_logo.nolazyload.footer_mini_logo(title=_p('nav.backtop'), onclick="sco.toTop()")
-            img(src=theme.site.icon, alt=_p('nav.backtop'))
+            img(src=theme.site.siteIcon, alt=_p('nav.backtop'))
 
     each value, label in rightInfo
         - var array = value.split('||')

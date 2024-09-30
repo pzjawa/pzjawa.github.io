@@ -2,7 +2,7 @@
 .post-copyright
     .post-copyright__author_group
         a.post-copyright__author_img(href=url_for(copyright.author.url))
-            img.post-copyright__author_img_front(src=copyright.author.img || theme.site.icon)
+            img.post-copyright__author_img_front(src=copyright.author.img || theme.site.siteIcon)
         .post-copyright__author_name= config.title
         .post-copyright__author_desc= config.subtitle
     .post-tools#post-tools
@@ -21,7 +21,7 @@
             -  const encodedPath = encodeURIComponent(path);
             -  const encodedTitle = encodeURIComponent(page.title);
             -  const encodedDescription = encodeURIComponent(page.description);
-            -  const encodedIcon = encodeURIComponent(page.cover || theme.site.icon);
+            -  const encodedIcon = encodeURIComponent(page.cover || theme.site.siteIcon);
             each item in theme.post.share.list || []
                 case item
                     when 'qq'
