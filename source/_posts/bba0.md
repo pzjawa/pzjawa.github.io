@@ -15,7 +15,7 @@ keywords: 'LSPatch,LSPosed,ONPatch,玩机,模块'
 
 ![](https://image.ifeng.asia:5243/files/2/66fa9142de9cd.webp)
 
-2023年10月13日，[LSPatch]( https://github.com/LSPosed/LSPatch)被迫归档。[LSPosed](https://github.com/LSPosed/LSPosed)也紧随其后，在2024年1月8日归档不再更新，这一事件可以说是“**机圈大地震**”。
+2023年10月13日，[LSPatch](https://github.com/LSPosed/LSPatch)被迫归档。[LSPosed](https://github.com/LSPosed/LSPosed)也紧随其后，在2024年1月8日归档不再更新，这一事件可以说是“**机圈大地震**”。
 
 在[LSP](https://github.com/LSPosed/)停更后，出现了如[NPatch](https://t.me/NPatch),[OPatch](https://t.me/QToolC/268)等对[LSPatch]( https://github.com/LSPosed/LSPatch)的改版，最后我选择了在[OPatch](https://t.me/QToolC/268)基础上再魔改的`ONPatch`,使用`ONPatch`无需使用[Shizuku](https://shizuku.rikka.app/zh-hans/)和将`ONPatch`挂在后台保活。
 
